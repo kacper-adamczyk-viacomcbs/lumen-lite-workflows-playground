@@ -24,8 +24,8 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Echo
-        run: echo ${GITHUB_REF##*/}
+        run: echo ${github}
 
       # Runs a set of commands using the runners shell
       - name: Echo raw
-        run: echo ${GITHUB_REF}
+        run: echo ${GITHUB_HEAD_REF}
