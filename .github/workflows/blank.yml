@@ -24,5 +24,5 @@ jobs:
         uses: actions/github-script@v3
         with:
           script: |
-            console.log({github, context});
+            console.log(context.pull_request);
             core.setFailed('envA and envB are not equivalent!')
