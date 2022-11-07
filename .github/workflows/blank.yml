@@ -21,8 +21,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Check if the source is a feature branch
-        uses: actions/github-script@v3
+        uses: actions/github-script@v6
         with:
           script: |
-            console.log(context.pull_request);
+            console.log(context.payload);
             core.setFailed('envA and envB are not equivalent!')
