@@ -17,4 +17,4 @@ jobs:
               repo,
               pull_number,
             });
-            console.log(reviews);
+            console.log(reviews.data);
