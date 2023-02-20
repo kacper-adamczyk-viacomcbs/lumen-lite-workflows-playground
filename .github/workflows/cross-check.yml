@@ -9,5 +9,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            console.log(context);
-            console.log(context.payload.pull_request._links);
+            console.log(context.payload.repository.owner);
+            console.log(context.payload.repository.name);
+            console.log(context.payload.pull_request.number);
