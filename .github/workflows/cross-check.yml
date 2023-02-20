@@ -1,0 +1,12 @@
+name: Cross Check Verifier
+on:
+  pull_request_review:
+jobs:
+  add-dev-cross-check-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the PR is ready for the DCC
+        uses: actions/github-script@v6
+        with:
+          script: |
+          console.log(context.payload)
