@@ -12,8 +12,7 @@ jobs:
             const owner = context.payload.repository.owner.login;
             const repo = context.payload.repository.name;
             const pull_number = context.payload.pull_request.number;
-            console.log(github);
-            const reviews = github.rest.pulls.listReviews({
+            const reviews = await github.rest.pulls.listReviews({
               owner,
               repo,
               pull_number,
