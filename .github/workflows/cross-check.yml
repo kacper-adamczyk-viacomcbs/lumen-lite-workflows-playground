@@ -9,12 +9,24 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            const MIN_APPROVES = 1;
             const owner = context.payload.repository.owner.login;
             const repo = context.payload.repository.name;
             const pull_number = context.payload.pull_request.number;
-            const reviews = await github.rest.pulls.listReviews({
+            const response = await github.rest.pulls.listReviews({
               owner,
               repo,
               pull_number,
             });
-            console.log(reviews.data);
+            const reviews = response.data ?? [];
+            const recentReviews = Array.from(reviews.filter(({state}) =>  ['APPROVED', 'CHANGES_REQUESTED'].includes(state)).reduceRight((reviews, {state, user: {login}}) => {
+            if (!reviews.has(login)) {
+                reviews.set(login, state)
+            }
+            return reviews;
+            }, new Map()).values());
+            const isApproved = recentReviews.every(review => review === 'APPROVED') && recentReviews.length >= MIN_APPROVES;
+            console.log(isApproved);
+            if(isApproved) {
+            } else {
+            }
