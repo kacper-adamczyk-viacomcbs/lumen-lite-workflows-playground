@@ -1,8 +1,7 @@
 
 name: Ready State Validator
 on:
-  pull_request:
-    branches: [ "main" ]
+  pull_request_review:
 jobs:
   validate-ready-state:
     runs-on: ubuntu-latest
