@@ -14,10 +14,12 @@ jobs:
             const owner = context.payload.repository.owner.login;
             const repo = context.payload.repository.name;
             const { number: pull_number, labels } = context.payload.pull_request;
+            console.log(labels);
             const response = await github.rest.pulls.listReviews({
               owner,
               repo,
               pull_number,
+              per_page: 100,
             });
             const reviews = response.data ?? [];
             const recentReviews = Array.from(reviews.filter(({state}) =>  ['APPROVED', 'CHANGES_REQUESTED'].includes(state)).reduceRight((reviews, {state, user: {login}}) => {
