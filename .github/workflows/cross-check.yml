@@ -21,12 +21,13 @@ jobs:
             const reviews = response.data ?? [];
             const recentReviews = Array.from(reviews.filter(({state}) =>  ['APPROVED', 'CHANGES_REQUESTED'].includes(state)).reduceRight((reviews, {state, user: {login}}) => {
             if (!reviews.has(login)) {
-                reviews.set(login, state)
+              reviews.set(login, state)
             }
             return reviews;
             }, new Map()).values());
             const isApproved = recentReviews.every(review => review === 'APPROVED') && recentReviews.length >= MIN_APPROVES;
             console.log(isApproved);
             if(isApproved) {
+              await github.rest.issues.addLabels({owner, repo, issue_number: pull_number, labels: [{ name: "DCC" }] });
             } else {
             }
