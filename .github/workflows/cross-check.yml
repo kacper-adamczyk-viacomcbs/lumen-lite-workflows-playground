@@ -29,5 +29,6 @@ jobs:
             if(isApproved) {
               await github.rest.issues.addLabels({owner, repo, issue_number: pull_number, labels: ["DCC"] });
             } else {
+              console.log(context.payload.pull_request)
               await github.rest.issues.removeLabel({owner, repo, issue_number: pull_number, name: "DCC" });
             }
