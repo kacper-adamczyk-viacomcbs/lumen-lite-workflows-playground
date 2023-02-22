@@ -12,8 +12,7 @@ jobs:
         with:
           script: |
             const READY_LABEL = 'Ready';
-            const { assignee, assignees, labels } = context.payload.pull_request;
-            console.log(assignee, assignees)
-            if (!assignee || !labels.map(({ name }) => name).includes(READY_LABEL)) {
+            const { assignees, labels } = context.payload.pull_request;
+            if (!assignees.length || !labels.map(({ name }) => name).includes(READY_LABEL)) {
               core.setFailed('PR is not ready');
             }
