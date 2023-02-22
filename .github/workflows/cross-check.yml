@@ -26,8 +26,8 @@ jobs:
             return reviews;
             }, new Map()).values());
             const isApproved = recentReviews.every(review => review === 'APPROVED') && recentReviews.length >= MIN_APPROVES;
-            console.log(isApproved);
             if(isApproved) {
               await github.rest.issues.addLabels({owner, repo, issue_number: pull_number, labels: ["DCC"] });
             } else {
+              await github.rest.issues.removeLabel({owner, repo, issue_number: pull_number, name: "DCC" });
             }
